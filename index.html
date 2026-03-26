@@ -3,224 +3,212 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Bangkok 4D3N - 泰國渡假手冊</title>
+    <title>Bangkok Retreat - AI Q版渡假攻略</title>
     <style>
         :root {
             --sea-green: #14a098; --sand-gold: #cb9d06; --tropical-white: #f7f9f9;
             --deep-ocean: #05445e; --grab-green: #00b14f; --star-gold: #c5a059;
             --coral-pink: #feb47b;
         }
-        * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
-        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "PingFang TC", "Microsoft JhengHei", sans-serif; margin: 0; background-color: var(--tropical-white); color: #333; overflow-x: hidden; }
+        body { font-family: 'PingFang TC', 'Microsoft JhengHei', sans-serif; line-height: 1.6; margin: 0; background-color: var(--tropical-white); color: #333; padding-bottom: 50px; transition: all 0.3s ease; }
         
-        /* 渡假風 Header */
+        /* 美麗的 Header */
         header { 
             background: linear-gradient(135deg, #14a098 0%, #feb47b 100%); 
-            padding: 40px 20px; color: white; text-align: center;
-            border-bottom-left-radius: 25px; border-bottom-right-radius: 25px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            height: 180px; color: white; display: flex; flex-direction: column; 
+            justify-content: center; align-items: center; text-align: center;
+            border-bottom-left-radius: 30px; border-bottom-right-radius: 30px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
         }
-        header h1 { font-size: 1.8rem; margin: 0; letter-spacing: 1px; text-shadow: 1px 1px 3px rgba(0,0,0,0.2); }
-        header p { font-size: 0.9rem; margin: 8px 0 0; opacity: 0.9; }
+        header h1 { font-size: 2.2rem; margin: 0 0 10px; text-shadow: 2px 2px 4px rgba(0,0,0,0.2); }
+        header p { font-size: 1rem; margin: 0; opacity: 0.9; }
 
-        /* 滑動導航列 */
-        nav { background: white; display: flex; overflow-x: auto; white-space: nowrap; border-bottom: 1px solid #eee; position: sticky; top: 0; z-index: 1000; scrollbar-width: none; }
-        nav::-webkit-scrollbar { display: none; }
-        .nav-tab { padding: 16px 20px; cursor: pointer; font-weight: bold; color: #888; flex: 1; text-align: center; font-size: 0.95rem; }
-        .nav-tab.active { color: var(--sea-green); border-bottom: 4px solid var(--sea-green); }
+        /* 分頁導航欄 */
+        nav { background: white; display: flex; overflow-x: auto; white-space: nowrap; border-bottom: 2px solid #eee; position: sticky; top: 0; z-index: 1000; -webkit-overflow-scrolling: touch; }
+        .nav-tab { padding: 15px 20px; cursor: pointer; font-weight: bold; color: #777; flex-shrink: 0; }
+        .nav-tab:hover { color: var(--sea-green); }
+        .nav-tab.active { color: var(--sea-green); border-bottom: 3px solid var(--sea-green); }
 
-        .container { max-width: 600px; margin: auto; padding: 15px; }
-        .content-section { display: none; animation: fadeIn 0.3s ease-in-out; }
+        .container { max-width: 800px; margin: auto; padding: 10px; }
+        .content-section { display: none; padding: 15px; animation: fadeIn 0.4s; }
         .content-section.active { display: block; }
         @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
 
-        /* 卡片與按鈕 */
-        .card { background: white; padding: 20px; border-radius: 18px; box-shadow: 0 4px 12px rgba(0,0,0,0.05); margin-bottom: 20px; border: 1px solid #f2f2f2; }
-        .btn { display: flex; align-items: center; justify-content: center; color: white; padding: 12px 20px; border-radius: 30px; text-decoration: none; margin-top: 10px; font-size: 1rem; font-weight: bold; width: 100%; }
-        .btn-map { background: var(--sea-green); }
-        .btn-flight { background: var(--star-gold); margin-bottom: 8px; }
-        .btn-bot { background: var(--bot-blue, #004d99); font-size: 0.9rem; }
-        .btn-grab { background: var(--grab-green); font-size: 1.1rem; padding: 15px; }
+        /* 卡片設計 */
+        .card { background: white; padding: 20px; border-radius: 20px; box-shadow: 0 10px 25px rgba(0,0,0,0.05); margin-bottom: 25px; border: 1px solid #f0f0f0; transition: transform 0.2s ease; }
+        .card:hover { transform: translateY(-3px); }
         
-        h2 { color: var(--deep-ocean); border-left: 5px solid var(--sand-gold); padding-left: 12px; margin: 10px 0 20px; font-size: 1.25rem; }
-        .thai-address { background: #fff8eb; border: 1px dashed var(--sand-gold); padding: 15px; border-radius: 12px; font-size: 1.1rem; color: #222; margin: 12px 0; line-height: 1.4; }
-
-        /* 伴手禮卡片 (文字版) */
-        .gift-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
-        .gift-card { background: white; border-radius: 15px; overflow: hidden; border: 1px solid #eee; text-align: center; padding: 20px 10px; box-shadow: 0 2px 6px rgba(0,0,0,0.03); display: flex; flex-direction: column; align-items: center; justify-content: center; }
-        .gift-icon { font-size: 2.5rem; margin-bottom: 10px; color: var(--sand-gold); }
-        .gift-card h4 { margin: 0; font-size: 1rem; color: var(--deep-ocean); }
-        .gift-card p { margin: 5px 0 0; font-size: 0.8rem; color: #777; }
-
-        /* 行程 Day Box */
+        /* 按鈕設計 */
+        .btn { display: inline-flex; align-items: center; color: white; padding: 10px 20px; border-radius: 30px; text-decoration: none; margin-top: 10px; font-size: 0.9rem; font-weight: bold; }
+        .btn-map { background: var(--sea-green); }
+        .btn-grab { background: var(--grab-green); display: block; text-align: center; width: 100%; box-sizing: border-box; }
+        .btn-flight { background: var(--star-gold); margin-right: 10px; }
+        .btn-google { background: #4285F4; margin-top: 15px; width: 100%; justify-content: center; }
+        
+        h2 { color: var(--deep-ocean); border-left: 5px solid var(--sand-gold); padding-left: 10px; margin-bottom: 20px; font-size: 1.4rem; }
         .day-box { margin-bottom: 30px; border-left: 3px solid var(--sea-green); padding-left: 15px; }
-        .day-box h3 { color: var(--sea-green); margin: 0 0 10px; }
+        .thai-address { background: #fff5e6; border: 1px dashed var(--sand-gold); padding: 15px; border-radius: 10px; font-family: 'Tahoma', sans-serif; font-size: 1.1rem; color: #333; margin-top: 10px; }
 
-        /* 翻譯與清單 */
-        .trans-box { width: 100%; padding: 14px; border-radius: 10px; border: 1px solid #ddd; font-size: 1rem; margin-bottom: 12px; background: #fafafa; }
-        #thai_res { background: #eef7f6; color: var(--deep-ocean); border-radius: 10px; padding: 18px; font-size: 1.25rem; font-weight: bold; text-align: center; border: 1px solid var(--sea-green); margin-top: 10px; }
-        .checklist-item { display: flex; align-items: center; padding: 12px 0; border-bottom: 1px solid #f9f9f9; font-size: 1rem; }
-        .checklist-item input { width: 22px; height: 22px; margin-right: 15px; accent-color: var(--sea-green); }
+        /* 伴手禮卡片優化 */
+        .gift-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 15px; margin-top: 15px; }
+        .gift-card { background: white; border-radius: 15px; overflow: hidden; box-shadow: 0 4px 10px rgba(0,0,0,0.08); border: 1px solid #eee; text-align: center; padding: 10px; }
+        .gift-card img { width: 100%; height: 120px; object-fit: contain; background: #fff; padding: 5px; box-sizing: border-box; border-radius: 10px; }
+        .gift-card-content h4 { margin: 8px 0 0; color: var(--deep-ocean); font-size: 1rem; }
 
-        footer { text-align: center; padding: 30px; color: #bbb; font-size: 0.8rem; }
+        /* 工具區 */
+        .trans-box { width: 100%; padding: 12px; border-radius: 8px; border: 1px solid #ddd; font-size: 1rem; box-sizing: border-box; }
+        #thai_res { background: #eef7f6; color: var(--deep-ocean); border-radius: 8px; padding: 15px; font-size: 1.2rem; font-weight: bold; min-height: 30px; margin-top: 10px; text-align: center; border: 1px solid var(--sea-green); }
+        .checklist-item { display: flex; align-items: center; margin-bottom: 12px; font-size: 1rem; cursor: pointer; }
+        .checklist-item input { width: 20px; height: 20px; margin-right: 15px; accent-color: var(--sea-green); }
     </style>
 </head>
 <body>
 
 <header>
-    <h1>BANGKOK RETREAT</h1>
-    <p>星宇航空 JX745 ➔ JX742 | 宜必思尚品</p>
+    <h1>SAWADEE RETREAT</h1>
+    <p>曼谷快閃 4 天 3 夜 Q版攻略</p>
 </header>
 
 <nav id="topNav">
-    <div class="nav-tab active" onclick="showPage('page1', this)">交通航班</div>
+    <div class="nav-tab active" onclick="showPage('page1', this)">交通與航班</div>
     <div class="nav-tab" onclick="showPage('page2', this)">每日行程</div>
-    <div class="nav-tab" onclick="showPage('page4', this)">必買清單</div>
-    <div class="nav-tab" onclick="showPage('page3', this)">工具清單</div>
+    <div class="nav-tab" onclick="showPage('page4', this)">必買伴手禮</div>
+    <div class="nav-tab" onclick="showPage('page3', this)">工具與 Grab</div>
 </nav>
 
 <div class="container">
 
     <div id="page1" class="content-section active">
-        <h2>✈️ 航班動態</h2>
-        <div class="card">
-            <p><strong>去程 JX745：</strong> 13:55 ➔ 16:45</p>
-            <a href="https://www.flightradar24.com/data/flights/jx745" target="_blank" class="btn btn-flight">去程即時追蹤</a>
-            <p style="margin-top:15px;"><strong>回程 JX742：</strong> <span style="color:red;font-weight:bold;">13:10</span> ➔ 17:55</p>
-            <a href="https://www.flightradar24.com/data/flights/jx742" target="_blank" class="btn btn-flight">回程即時追蹤</a>
+        <h2>✈️ 星宇航空 JX745 / JX742</h2>
+        <div class="card" style="border-top: 5px solid var(--star-gold);">
+            <p>去程 <strong>JX745</strong>：13:55 TPE ➔ 16:45 BKK</p>
+            <p>回程 <strong>JX742</strong>：<span style="color:red;font-weight:bold;">13:10</span> BKK ➔ 17:55 TPE</p>
+            <a href="https://www.flightradar24.com/data/flights/jx745" target="_blank" class="btn btn-flight">去程追蹤</a>
+            <a href="https://www.flightradar24.com/data/flights/jx742" target="_blank" class="btn btn-flight">回程追蹤</a>
         </div>
-        <h2>🏨 飯店泰文地址</h2>
+
+        <h2>🏨 飯店泰文地址 (給司機看)</h2>
         <div class="card">
             <strong>Ibis Styles Bangkok Ratchada</strong>
-            <div class="thai-address">212 ถนนรัชดาภิเษก ห้วยขวาง กรุงเทพมหานคร 10310</div>
+            <div class="thai-address">
+                212 ถนนรัชดาภิเษก ห้วยขวาง กรุงเทพมหานคร 10310<br>
+                (โรงแรมไอบิส สไตล์ กรุงเทพ รัชดา - ติด MRT ห้วยขวาง)
+            </div>
             <a href="https://www.google.com/maps/search/?api=1&query=Ibis+Styles+Bangkok+Ratchada" target="_blank" class="btn btn-map">開啟飯店導航</a>
         </div>
     </div>
 
     <div id="page2" class="content-section">
-        <h2>🗓️ 曼谷渡假計畫</h2>
-        <div class="card">
-            <div class="day-box">
-                <h3>Day 1 - 抵達曼谷</h3>
-                <p>飯店 Check-in ➔ <b>Jodd Fairs</b> 拉差達夜市吃晚餐。</p>
-                <a href="https://www.google.com/maps/search/?api=1&query=Jodd+Fairs+Ratchada" target="_blank" class="btn btn-map">夜市地圖</a>
-            </div>
-            <div class="day-box" style="margin-top:30px;">
-                <h3>Day 2 - 文化與河岸</h3>
-                <p>大皇宮 ➔ 鄭王廟 ➔ <b>ICONSIAM (暹羅天地)</b> 吹冷氣。</p>
-                <a href="https://www.google.com/maps/search/?api=1&query=ICONSIAM" target="_blank" class="btn btn-map">ICONSIAM 導航</a>
-            </div>
-            <div class="day-box" style="margin-top:30px;">
-                <h3>Day 3 - 市區血拼</h3>
-                <p>Siam 商圈 ➔ 四面佛 ➔ <b>Mahanakhon</b> 夜景。</p>
-                <a href="https://www.google.com/maps/search/?api=1&query=Siam+Paragon" target="_blank" class="btn btn-map">Siam商圈地圖</a>
-            </div>
-            <div class="day-box" style="margin-top:30px;">
-                <h3>Day 4 - 返程</h3>
-                <p>10:30 退房出發機場 ➔ 13:10 飛往台北。</p>
-            </div>
+        <h2>🗓️ 曼谷 Q版渡假計畫</h2>
+        
+        <div class="day-box">
+            <h3>Day 1 - 抵達曼谷</h3>
+            <p>抵達 ➔ 飯店 Check-in ➔ <b>Jodd Fairs</b> 夜市晚餐。</p>
+            <a href="https://www.google.com/maps/search/?api=1&query=Jodd+Fairs+Ratchada" target="_blank" class="btn btn-map">夜市地圖</a>
+        </div>
+
+        <div class="day-box">
+            <h3>Day 2 - 文化與河岸</h3>
+            <p>大皇宮 ➔ 鄭王廟 ➔ <b>ICONSIAM</b> 看水舞。</p>
+            <a href="https://www.google.com/maps/search/?api=1&query=ICONSIAM" target="_blank" class="btn btn-map">ICONSIAM 導航</a>
+        </div>
+
+        <div class="day-box">
+            <h3>Day 3 - 市區血拼</h3>
+            <p>Siam 商圈 ➔ <b>四面佛</b> ➔ <b>Mahanakhon</b> 夜景。</p>
+            <a href="https://www.google.com/maps/search/?api=1&query=Erawan+Shrine" target="_blank" class="btn btn-map">四面佛</a>
+        </div>
+
+        <div class="day-box">
+            <h3>Day 4 - 返程</h3>
+            <p>10:30 前往機場 ➔ 13:10 班機返台。</p>
         </div>
     </div>
 
     <div id="page4" class="content-section">
-        <h2>🛍️ 必買推薦 (Big C 採購)</h2>
+        <h2>🛍️ 泰國必買攻略 (推薦於 Big C 購買)</h2>
         <div class="gift-grid">
             <div class="gift-card">
-                <div class="gift-icon">🌿</div>
-                <h4>小老闆海苔</h4>
-                <p>口味超多，酸辣蝦湯最道地</p>
+                <img src="https://imagegen.vdb.ai/a/04e8d384-cb98-4c91-b3b0-51b681944da9.png" alt="小老闆海苔 Q版">
+                <div class="gift-card-content"><h4>小老闆海苔</h4></div>
             </div>
             <div class="gift-card">
-                <div class="gift-icon">☕</div>
-                <h4>手標泰式奶茶</h4>
-                <p>經典罐裝，送禮自用兩相宜</p>
+                <img src="https://imagegen.vdb.ai/a/a6176978-f75e-4c59-bf57-4151a1ca5d86.png" alt="手標泰奶 Q版">
+                <div class="gift-card-content"><h4>手標泰奶</h4></div>
             </div>
             <div class="gift-card">
-                <div class="gift-icon">🍜</div>
-                <h4>MAMA 泡麵</h4>
-                <p>酸辣蝦湯、綠咖哩必掃</p>
+                <img src="https://imagegen.vdb.ai/a/17094d21-4f10-4497-a75d-5fb901f4c7f0.png" alt="MAMA泡麵 Q版">
+                <div class="gift-card-content"><h4>MAMA 泡麵</h4></div>
             </div>
             <div class="gift-card">
-                <div class="gift-icon">❄️</div>
-                <h4>蛇牌爽身粉</h4>
-                <p>夏日神器，清涼解暑</p>
+                <img src="https://imagegen.vdb.ai/a/6b3f886c-0e24-42f0-94d0-40be998f4e20.png" alt="蛇牌爽身粉 Q版">
+                <div class="gift-card-content"><h4>蛇牌爽身粉</h4></div>
             </div>
             <div class="gift-card">
-                <div class="gift-icon">👃</div>
-                <h4>POYSIAN 薄荷棒</h4>
-                <p>泰國在地薄荷棒，頭暈必備</p>
+                <img src="https://imagegen.vdb.ai/a/240b904c-352b-4560-afb2-302324b171f1.png" alt="薄荷棒 Q版">
+                <div class="gift-card-content"><h4>八仙薄荷棒</h4></div>
             </div>
             <div class="gift-card">
-                <div class="gift-icon">🩹</div>
-                <h4>Counterpain</h4>
-                <p>痠痛軟膏(紅/藍)，網路激推</p>
+                <img src="https://imagegen.vdb.ai/a/2b163820-bd70-4f51-b844-323f46f48348.png" alt="Counterpain痠痛膏 Q版">
+                <div class="gift-card-content"><h4>痠痛軟膏</h4></div>
             </div>
         </div>
-        <a href="https://www.google.com/maps/search/?api=1&query=Big+C+Ratchadamri" target="_blank" class="btn btn-map" style="margin-top:25px;">導航至 Big C 旗艦店</a>
+        <a href="https://www.google.com/maps/search/?api=1&query=Big+C+Ratchadamri" target="_blank" class="btn btn-map" style="width:100%; justify-content:center; margin-top:20px; font-size: 1rem;">導航至 Big C Flagship Store</a>
     </div>
 
     <div id="page3" class="content-section">
-        <h2>💰 匯率快算 (1:1.1)</h2>
-        <div class="card" style="background: var(--sea-green); color: white;">
-            <a href="https://rate.bot.com.tw/xrt?Lang=zh-TW" target="_blank" class="btn btn-bot" style="background:#004d99; border-radius:30px; font-weight:bold;">台銀即時匯率查詢</a>
-            <p style="margin-top:20px;">匯率 (如 1.10)：</p>
-            <input type="number" id="rate" value="1.10" step="0.01" class="trans-box">
-            <p>台幣金額 (TWD)：</p>
-            <input type="number" id="twd" placeholder="輸入台幣" class="trans-box">
-            <div id="thb_res" style="font-size: 2.2rem; font-weight: bold; color: var(--sand-gold); text-align:center;"></div>
+        <h2>🚖 叫車與翻譯工具</h2>
+        <div class="card">
+            <a href="grab://open" class="btn btn-grab">直接開啟 Grab App</a>
         </div>
 
-        <h2>🇹🇭 旅遊常用翻譯</h2>
         <div class="card">
-            <select id="trans" class="trans-box" onchange="translateText()">
+            <h4>🇹🇭 中泰旅遊常用語</h4>
+            <select id="transText" class="trans-box" onchange="translateText()" style="margin-bottom: 10px;">
                 <option value="">-- 點選常用語 --</option>
                 <option value="去機場">去機場</option>
                 <option value="去飯店">去飯店</option>
                 <option value="不要辣">不要辣</option>
+                <option value="少糖">少糖</option>
                 <option value="謝謝">謝謝</option>
                 <option value="多少錢？">多少錢？</option>
             </select>
             <div id="thai_res"></div>
-            <a href="https://translate.google.com/?sl=zh-TW&tl=th&op=translate" target="_blank" class="btn-bot" style="display:flex; justify-content:center; align-items:center; color:white; padding:12px; text-decoration:none; border-radius:30px; background:#4285F4; margin-top:15px; font-weight:bold;">開啟 Google 翻譯</a>
+            <a href="https://translate.google.com/?sl=zh-TW&tl=th&op=translate" target="_blank" class="btn btn-google">開啟 Google 翻譯 (中轉泰)</a>
         </div>
 
-        <div class="card" style="background:#000;">
-            <a href="grab://open" class="btn btn-grab">🚖 開啟 Grab 叫車</a>
-        </div>
-
-        <h2>✅ 必帶清單</h2>
+        <h2>✅ 出國必帶勾選清單</h2>
         <div class="card">
-            <label class="checklist-item"><input type="checkbox"> 護照正本</label>
+            <label class="checklist-item"><input type="checkbox"> 護照 (效期6個月以上)</label>
             <label class="checklist-item"><input type="checkbox"> 星宇機票 & 飯店憑證</label>
-            <label class="checklist-item"><input type="checkbox"> 泰國 SIM 卡 / 漫遊</label>
+            <label class="checklist-item"><input type="checkbox"> 泰國 SIM 卡 / 漫遊已設定</label>
             <label class="checklist-item"><input type="checkbox"> 泰銖現金 & 信用卡</label>
+            <label class="checklist-item"><input type="checkbox"> 個人常備藥品</label>
+        </div>
+
+        <h2>💰 匯率快算 (1:1.1)</h2>
+        <div class="card" style="background: var(--sea-green); color: white; text-align: center; border-radius: 15px;">
+            <input type="number" id="twd" placeholder="台幣金額" style="padding: 12px; border-radius: 8px; border: none; width: 80%; font-size: 1.2rem; text-align: center;">
+            <p id="thb_res" style="font-size: 2.5rem; font-weight: bold; color: var(--sand-gold); margin-top: 20px;"></p>
         </div>
     </div>
+
 </div>
 
-<footer>
-    <p>© 2026 Bangkok Holiday Guide<br>祝你旅途愉快！</p>
-</footer>
-
 <script>
-    function showPage(id, el) {
-        document.querySelectorAll('.content-section').forEach(s => s.classList.remove('active'));
-        document.getElementById(id).classList.add('active');
-        document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
-        el.classList.add('active');
-        window.scrollTo(0, 0);
-    }
-    const dict = { "去機場":"ไปสนามบิน", "去飯店":"ไปโรงแรม", "不要辣":"ไม่เผ็ด", "謝謝":"ขอบคุณ", "多少錢？":"เท่าไหร่" };
+    const thaiDictionary = {
+        "去機場": "ไปสนามบิน (Pai Sa-nam-bin)",
+        "去飯店": "ไปโรงแรม (Pai Rong-ram)",
+        "不要辣": "ไม่เผ็ด (Mai Phet)",
+        "少糖": "หวานน้อย (Hwan Noi)",
+        "謝謝": "ขอบคุณ (Khop Khun)",
+        "多少錢？": "เท่าไหร่ (Tao Rai?)"
+    };
+
     function translateText() {
-        document.getElementById('thai_res').innerText = dict[document.getElementById('trans').value] || "";
+        const selected = document.getElementById('transText').value;
+        document.getElementById('thai_res').innerText = thaiDictionary[selected] || "";
     }
-    document.getElementById('twd').addEventListener('input', updateCalc);
-    document.getElementById('rate').addEventListener('input', updateCalc);
-    function updateCalc() {
-        const twd = document.getElementById('twd').value;
-        const rate = document.getElementById('rate').value;
-        document.getElementById('thb_res').innerText = (twd > 0) ? '฿ ' + (twd * rate).toLocaleString(undefined, {minimumFractionDigits: 0, maximumFractionDigits: 0}) : '';
-    }
-</script>
-</body>
-</html>
+
+    function showPage(pageId, element) {
+        document.querySelectorAll('.content-section').forEach(s => s.classList.remove('active'));
